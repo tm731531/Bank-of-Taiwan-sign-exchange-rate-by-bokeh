@@ -1,0 +1,31 @@
+USE [Farmdata]
+GO
+/****** Object:  StoredProcedure [dbo].[GetBankInfo]    Script Date: 6/6/2017 11:48:14 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[BANK](
+	[type] [nvarchar](max) NULL,
+	[cash_in] [nvarchar](max) NULL,
+	[cash_out] [nvarchar](max) NULL,
+	[sell_in] [nvarchar](max) NULL,
+	[sell_out] [nvarchar](max) NULL,
+	[datetime] [datetime] ,
+)
+GO
+CREATE  proc [dbo].[GetBankInfo]
+ @type nvarchar(100)
+  as 
+  begin 
+  SELECT TOP (1000) [type]
+      ,[cash_in]
+      ,[cash_out]
+      ,[sell_in]
+      ,[sell_out]
+      ,[datetime]
+  FROM [Farmdata].[dbo].[BANK]
+         where    [type] like N'%'+@type+'%'
+		 order by [datetime] 
+end
+GO
